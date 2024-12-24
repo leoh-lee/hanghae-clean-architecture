@@ -1,7 +1,7 @@
 package com.leoh.hhweek2.interfaces.api.lecture;
 
 import com.leoh.hhweek2.application.lecture.EnrollFacade;
-import com.leoh.hhweek2.common.ApiResponse;
+import com.leoh.hhweek2.support.http.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

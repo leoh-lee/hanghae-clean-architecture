@@ -1,4 +1,4 @@
-package com.leoh.hhweek2.common;
+package com.leoh.hhweek2.support.http.response;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
