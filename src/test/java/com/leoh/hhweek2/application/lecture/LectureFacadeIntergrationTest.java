@@ -2,8 +2,11 @@ package com.leoh.hhweek2.application.lecture;
 
 import com.leoh.hhweek2.domain.exception.EnrollmentLimitExceededException;
 import com.leoh.hhweek2.domain.lecture.EnrollmentRepository;
+import com.leoh.hhweek2.domain.lecture.Lecture;
+import com.leoh.hhweek2.domain.lecture.LectureRepository;
 import com.leoh.hhweek2.domain.lecture.LectureService;
 import com.leoh.hhweek2.domain.lecture.dto.EnrollmentServiceResponse;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,7 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -21,6 +26,7 @@ import java.util.concurrent.Executors;
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
+@ActiveProfiles("test") // test : H2 DB, local: Mysql
 class LectureFacadeIntergrationTest {
 
     public static final int ENROLLMENT_CAPACITY = 30;
@@ -31,11 +37,22 @@ class LectureFacadeIntergrationTest {
     private LectureService lectureService;
 
     @Autowired
+    private LectureRepository lectureRepository;
+
+    @Autowired
     private EnrollmentRepository enrollmentRepository;
+
+    private Lecture lecture;
 
     @BeforeEach
     void setUp() {
+        lecture = lectureRepository.save(Lecture.builder().name("특강1").speaker("강연자1").description("설명").capacity(ENROLLMENT_CAPACITY).lectureDateTime(LocalDateTime.now()).build());
+    }
+
+    @AfterEach
+    void tearDown() {
         enrollmentRepository.deleteAllInBatch();
+        lectureRepository.deleteAllInBatch();
     }
 
     @Test
@@ -75,7 +92,7 @@ class LectureFacadeIntergrationTest {
         // given
         int userCount = 5;
         long userId = 1L;
-        long lectureId = 1L;
+        long lectureId = lecture.getId();
 
         List<EnrollmentServiceResponse> successEnrollments = new ArrayList<>();
 
