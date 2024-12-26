@@ -1,8 +1,8 @@
 package com.leoh.hhweek2.lecture.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.leoh.hhweek2.application.lecture.EnrollFacade;
-import com.leoh.hhweek2.interfaces.api.lecture.*;
+import com.leoh.hhweek2.application.lecture.LectureFacade;
+import com.leoh.hhweek2.interfaces.api.lecture.dto.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,13 +31,13 @@ class LectureControllerTest {
     private MockMvc mockMvc;
 
     @MockitoBean
-    private EnrollFacade enrollFacade;
+    private LectureFacade lectureFacade;
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("사용자 id와 특강 id로 특강을 신청할 수 있다.")
+    @DisplayName("특강 수강신청 API")
     void enroll() throws Exception {
         // given
         long lectureId = 1L;
@@ -45,7 +45,7 @@ class LectureControllerTest {
 
         EnrollRequest enrollRequest = new EnrollRequest(userId);
 
-        when(enrollFacade.enroll(lectureId, enrollRequest)).thenReturn(new EnrollResponse(lectureId, userId, "강연자"));
+        when(lectureFacade.enroll(lectureId, enrollRequest)).thenReturn(new EnrollResponse(lectureId, "특강1", userId, "강연자"));
 
         // when // then
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/lectures/"+ lectureId +"/enroll")
@@ -65,10 +65,10 @@ class LectureControllerTest {
         LocalDate startTime = LocalDate.now().minusDays(7L);
         LocalDate endTime = LocalDate.now();
 
-        AvailableLectureSearchRequest searchRequest = new AvailableLectureSearchRequest(startTime, endTime);
-        AvailableLectureSearchResponse response = new AvailableLectureSearchResponse(lectureId, lectureName, speaker, false, 10, 30);
+        AvailableLectureSearchRequest searchRequest = new AvailableLectureSearchRequest(1L, startTime, endTime);
+        AvailableLectureSearchResponse response = new AvailableLectureSearchResponse(lectureId, lectureName, speaker, 18, 30);
 
-        when(enrollFacade.getAvailableLectures(searchRequest)).thenReturn(List.of(response));
+        when(lectureFacade.getAvailableLectures(searchRequest)).thenReturn(List.of(response));
 
         // when // then
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/lectures/available")
@@ -87,7 +87,7 @@ class LectureControllerTest {
 
         UserEnrollmentSearchResponse response = new UserEnrollmentSearchResponse(1L, "강의명", "강연자", 13, 30);
 
-        when(enrollFacade.getUserEnrollment(userId)).thenReturn(List.of(response));
+        when(lectureFacade.getUserEnrollment(userId)).thenReturn(List.of(response));
 
         // when // then
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/users/" + userId + "/enrollment")
