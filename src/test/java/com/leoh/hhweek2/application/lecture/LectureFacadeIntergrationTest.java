@@ -21,11 +21,11 @@ import java.util.concurrent.Executors;
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
-class LectureFacadeTest {
+class LectureFacadeIntergrationTest {
 
     public static final int ENROLLMENT_CAPACITY = 30;
 
-    Logger logger = LoggerFactory.getLogger(LectureFacadeTest.class);
+    Logger logger = LoggerFactory.getLogger(LectureFacadeIntergrationTest.class);
 
     @Autowired
     private LectureService lectureService;
