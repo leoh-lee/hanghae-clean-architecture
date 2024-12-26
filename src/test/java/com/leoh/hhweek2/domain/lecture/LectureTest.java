@@ -1,6 +1,5 @@
 package com.leoh.hhweek2.domain.lecture;
 
-import com.leoh.hhweek2.domain.lecture.enrollment.Enrollment;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

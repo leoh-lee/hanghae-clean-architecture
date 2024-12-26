@@ -1,7 +1,6 @@
-package com.leoh.hhweek2.domain.lecture.enrollment;
+package com.leoh.hhweek2.domain.lecture;
 
 import com.leoh.hhweek2.domain.common.BaseEntity;
-import com.leoh.hhweek2.domain.lecture.Lecture;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

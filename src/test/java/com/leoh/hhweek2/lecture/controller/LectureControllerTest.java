@@ -2,7 +2,7 @@ package com.leoh.hhweek2.lecture.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.leoh.hhweek2.application.lecture.LectureFacade;
-import com.leoh.hhweek2.interfaces.api.lecture.*;
+import com.leoh.hhweek2.interfaces.api.lecture.dto.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

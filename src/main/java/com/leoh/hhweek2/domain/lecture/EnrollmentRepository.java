@@ -1,4 +1,4 @@
-package com.leoh.hhweek2.domain.lecture.enrollment;
+package com.leoh.hhweek2.domain.lecture;
 
 import java.util.List;
 

@@ -1,5 +1,7 @@
 package com.leoh.hhweek2.domain.lecture.enrollment;
 
+import com.leoh.hhweek2.domain.lecture.Enrollment;
+import com.leoh.hhweek2.domain.lecture.EnrollmentRepository;
 import com.leoh.hhweek2.domain.lecture.Lecture;
 import com.leoh.hhweek2.domain.lecture.LectureRepository;
 import com.leoh.hhweek2.infrastructures.core.enrollment.EnrollmentRepositoryImpl;

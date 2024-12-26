@@ -1,6 +1,6 @@
-package com.leoh.hhweek2.interfaces.api.lecture;
+package com.leoh.hhweek2.interfaces.api.lecture.dto;
 
-import com.leoh.hhweek2.domain.lecture.LectureServiceResponse;
+import com.leoh.hhweek2.domain.lecture.dto.LectureServiceResponse;
 
 public record AvailableLectureSearchResponse(
         Long lectureId,

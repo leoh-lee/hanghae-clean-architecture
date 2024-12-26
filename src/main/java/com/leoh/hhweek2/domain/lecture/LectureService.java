@@ -1,10 +1,10 @@
 package com.leoh.hhweek2.domain.lecture;
 
 import com.leoh.hhweek2.domain.exception.LectureNotFoundException;
-import com.leoh.hhweek2.domain.lecture.enrollment.Enrollment;
-import com.leoh.hhweek2.domain.lecture.enrollment.EnrollmentRepository;
-import com.leoh.hhweek2.domain.lecture.enrollment.EnrollmentServiceResponse;
-import com.leoh.hhweek2.interfaces.api.lecture.AvailableLectureSearchRequest;
+import com.leoh.hhweek2.domain.lecture.dto.AvailableLectureSearchServiceRequest;
+import com.leoh.hhweek2.domain.lecture.dto.EnrollmentServiceResponse;
+import com.leoh.hhweek2.domain.lecture.dto.LectureServiceResponse;
+import com.leoh.hhweek2.domain.lecture.dto.UserEnrollmentSearchServiceResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +37,7 @@ public class LectureService {
         return EnrollmentServiceResponse.fromEntity(savedEnrollment);
     }
 
-    public List<LectureServiceResponse> getAvailableLectures(AvailableLectureSearchRequest searchRequest) {
+    public List<LectureServiceResponse> getAvailableLectures(AvailableLectureSearchServiceRequest searchRequest) {
         List<Lecture> lecturesAll = getLecturesAll();
 
         // 사용자가 신청한 특강 IDs
@@ -66,7 +66,7 @@ public class LectureService {
                 .toList();
     }
 
-    private List<Lecture> getAvailableLectureInSearchDate(AvailableLectureSearchRequest searchRequest, List<Lecture> lecturesAll) {
+    private List<Lecture> getAvailableLectureInSearchDate(AvailableLectureSearchServiceRequest searchRequest, List<Lecture> lecturesAll) {
         return lecturesAll.stream()
                 .filter(lecture -> lecture.isScheduledWithin(searchRequest.startDate(), searchRequest.endDate()))
                 .filter(Lecture::canEnroll)
@@ -77,7 +77,7 @@ public class LectureService {
         return lectureRepository.findAll();
     }
 
-    private List<Long> getUserEnrollmentLectureIds(AvailableLectureSearchRequest searchRequest) {
+    private List<Long> getUserEnrollmentLectureIds(AvailableLectureSearchServiceRequest searchRequest) {
         return enrollmentRepository.findEnrollmentsByUserId(searchRequest.userId())
                 .stream()
                 .map(enrollment -> enrollment.getLecture().getId())

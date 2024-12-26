@@ -1,10 +1,9 @@
 package com.leoh.hhweek2.domain.lecture;
 
 import com.leoh.hhweek2.domain.exception.LectureNotFoundException;
-import com.leoh.hhweek2.domain.lecture.enrollment.Enrollment;
-import com.leoh.hhweek2.domain.lecture.enrollment.EnrollmentRepository;
-import com.leoh.hhweek2.domain.lecture.enrollment.EnrollmentServiceResponse;
-import com.leoh.hhweek2.interfaces.api.lecture.AvailableLectureSearchRequest;
+import com.leoh.hhweek2.domain.lecture.dto.AvailableLectureSearchServiceRequest;
+import com.leoh.hhweek2.domain.lecture.dto.EnrollmentServiceResponse;
+import com.leoh.hhweek2.domain.lecture.dto.LectureServiceResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,7 +41,7 @@ class LectureServiceTest {
         LocalDate startDate = LocalDate.now().minusDays(7L);
         LocalDate endDate = LocalDate.now();
 
-        AvailableLectureSearchRequest searchRequest = new AvailableLectureSearchRequest(1L, startDate, endDate);
+        AvailableLectureSearchServiceRequest searchRequest = new AvailableLectureSearchServiceRequest(1L, startDate, endDate);
 
         when(lectureRepository.findAll()).thenReturn(lectures);
         when(enrollmentRepository.findEnrollmentsByUserId(userId)).thenReturn(List.of());
@@ -65,7 +64,7 @@ class LectureServiceTest {
         // given
         List<Lecture> lectures = createMockLectures();
 
-        AvailableLectureSearchRequest searchRequest = new AvailableLectureSearchRequest(1L, null, null);
+        AvailableLectureSearchServiceRequest searchRequest = new AvailableLectureSearchServiceRequest(1L, null, null);
 
         when(lectureRepository.findAll()).thenReturn(lectures);
 
@@ -96,7 +95,7 @@ class LectureServiceTest {
                 Enrollment.builder().userId(userId).lecture(lectures.get(2)).build()
         );
 
-        AvailableLectureSearchRequest searchRequest = new AvailableLectureSearchRequest(1L, null, null);
+        AvailableLectureSearchServiceRequest searchRequest = new AvailableLectureSearchServiceRequest(1L, null, null);
 
         when(lectureRepository.findAll()).thenReturn(lectures);
         when(enrollmentRepository.findEnrollmentsByUserId(userId)).thenReturn(enrollments);

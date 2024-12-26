@@ -1,4 +1,6 @@
-package com.leoh.hhweek2.domain.lecture;
+package com.leoh.hhweek2.domain.lecture.dto;
+
+import com.leoh.hhweek2.domain.lecture.Lecture;
 
 public record UserEnrollmentSearchServiceResponse(
         Long lectureId,

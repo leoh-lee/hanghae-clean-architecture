@@ -1,8 +1,8 @@
 package com.leoh.hhweek2.application.lecture;
 
 import com.leoh.hhweek2.domain.lecture.LectureService;
-import com.leoh.hhweek2.domain.lecture.enrollment.EnrollmentServiceResponse;
-import com.leoh.hhweek2.interfaces.api.lecture.*;
+import com.leoh.hhweek2.domain.lecture.dto.EnrollmentServiceResponse;
+import com.leoh.hhweek2.interfaces.api.lecture.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -19,8 +19,8 @@ public class LectureFacade {
         return EnrollResponse.fromServiceResponse(enrollmentServiceResponse);
     }
 
-    public List<AvailableLectureSearchResponse> getAvailableLectures(final AvailableLectureSearchRequest searchRequest) {
-        return lectureService.getAvailableLectures(searchRequest)
+    public List<AvailableLectureSearchResponse> getAvailableLectures(AvailableLectureSearchRequest searchRequest) {
+        return lectureService.getAvailableLectures(searchRequest.toServiceRequest())
                 .stream()
                 .map(AvailableLectureSearchResponse::fromServiceResponse)
                 .toList();

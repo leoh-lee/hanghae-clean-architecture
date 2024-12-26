@@ -1,6 +1,6 @@
-package com.leoh.hhweek2.domain.lecture.enrollment;
+package com.leoh.hhweek2.domain.lecture.dto;
 
-import com.leoh.hhweek2.domain.lecture.LectureServiceResponse;
+import com.leoh.hhweek2.domain.lecture.Enrollment;
 
 public record EnrollmentServiceResponse(
         Long id,

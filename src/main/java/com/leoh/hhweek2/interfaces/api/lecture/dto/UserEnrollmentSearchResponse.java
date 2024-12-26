@@ -1,6 +1,6 @@
-package com.leoh.hhweek2.interfaces.api.lecture;
+package com.leoh.hhweek2.interfaces.api.lecture.dto;
 
-import com.leoh.hhweek2.domain.lecture.UserEnrollmentSearchServiceResponse;
+import com.leoh.hhweek2.domain.lecture.dto.UserEnrollmentSearchServiceResponse;
 
 public record UserEnrollmentSearchResponse(
         Long lectureId,

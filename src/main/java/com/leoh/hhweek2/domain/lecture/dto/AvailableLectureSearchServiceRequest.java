@@ -1,8 +1,8 @@
-package com.leoh.hhweek2.interfaces.api.lecture;
+package com.leoh.hhweek2.domain.lecture.dto;
 
 import java.time.LocalDate;
 
-public record AvailableLectureSearchRequest(
+public record AvailableLectureSearchServiceRequest(
         Long userId,
         LocalDate startDate,
         LocalDate endDate

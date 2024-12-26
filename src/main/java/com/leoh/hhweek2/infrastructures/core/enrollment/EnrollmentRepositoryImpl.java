@@ -1,7 +1,7 @@
 package com.leoh.hhweek2.infrastructures.core.enrollment;
 
-import com.leoh.hhweek2.domain.lecture.enrollment.Enrollment;
-import com.leoh.hhweek2.domain.lecture.enrollment.EnrollmentRepository;
+import com.leoh.hhweek2.domain.lecture.Enrollment;
+import com.leoh.hhweek2.domain.lecture.EnrollmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
