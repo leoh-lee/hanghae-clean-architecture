@@ -1,10 +1,8 @@
 package com.leoh.hhweek2.domain.lecture;
 
 import com.leoh.hhweek2.domain.common.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.leoh.hhweek2.domain.lecture.enrollment.Enrollment;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,6 +10,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -34,6 +34,9 @@ public class Lecture extends BaseEntity {
 
     private String description;
 
+    @OneToMany(mappedBy = "lecture")
+    private List<Enrollment> enrollments = new ArrayList<>();
+
     public boolean isScheduledWithin(LocalDate startDate, LocalDate endDate) {
         boolean isAfterStart = (startDate == null) ||
                 !lectureDateTime.isBefore(startDate.atStartOfDay());
@@ -43,4 +46,13 @@ public class Lecture extends BaseEntity {
 
         return isAfterStart && isBeforeEnd;
     }
+
+    public boolean canEnroll() {
+        return capacity > this.enrollments.size();
+    }
+
+    public int getCurrentEnrollmentCount() {
+        return this.enrollments.size();
+    }
+
 }

@@ -1,6 +1,5 @@
 package com.leoh.hhweek2.infrastructures.core.lecture;
 
-import com.leoh.hhweek2.domain.exception.LectureNotFoundException;
 import com.leoh.hhweek2.domain.lecture.Lecture;
 import com.leoh.hhweek2.domain.lecture.LectureRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,7 @@ public class LectureRepositoryImpl implements LectureRepository {
 
     @Override
     public Lecture findById(Long lectureId) {
-        return lectureJpaRepository.findById(lectureId).orElseThrow(LectureNotFoundException::new);
+        return lectureJpaRepository.findById(lectureId).orElse(null);
     }
 
     @Override

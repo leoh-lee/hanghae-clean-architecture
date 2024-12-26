@@ -7,9 +7,19 @@ public record LectureServiceResponse(
         String name,
         LocalDateTime lectureDateTime,
         String speaker,
-        String description
+        String description,
+        int capacity,
+        int currentEnrollmentCount
 ) {
     public static LectureServiceResponse fromEntity(Lecture lecture) {
-        return new LectureServiceResponse(lecture.getId(), lecture.getName(), lecture.getLectureDateTime(), lecture.getSpeaker(), lecture.getDescription());
+        return new LectureServiceResponse(
+                lecture.getId(),
+                lecture.getName(),
+                lecture.getLectureDateTime(),
+                lecture.getSpeaker(),
+                lecture.getDescription(),
+                lecture.getCapacity(),
+                lecture.getCurrentEnrollmentCount()
+        );
     }
 }

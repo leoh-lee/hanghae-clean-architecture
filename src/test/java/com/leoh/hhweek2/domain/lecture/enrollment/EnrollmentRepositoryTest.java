@@ -1,9 +1,8 @@
-package com.leoh.hhweek2.infrastructures.core.enrollment;
+package com.leoh.hhweek2.domain.lecture.enrollment;
 
 import com.leoh.hhweek2.domain.lecture.Lecture;
 import com.leoh.hhweek2.domain.lecture.LectureRepository;
-import com.leoh.hhweek2.domain.lecture.enrollment.Enrollment;
-import com.leoh.hhweek2.domain.lecture.enrollment.EnrollmentRepository;
+import com.leoh.hhweek2.infrastructures.core.enrollment.EnrollmentRepositoryImpl;
 import com.leoh.hhweek2.infrastructures.core.lecture.LectureRepositoryImpl;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.DisplayName;
@@ -18,7 +17,7 @@ import static org.assertj.core.api.Assertions.*;
 
 @DataJpaTest
 @Import({EnrollmentRepositoryImpl.class, LectureRepositoryImpl.class})
-class EnrollmentRepositoryImplTest {
+class EnrollmentRepositoryTest {
 
     @Autowired
     private EnrollmentRepository enrollmentRepository;

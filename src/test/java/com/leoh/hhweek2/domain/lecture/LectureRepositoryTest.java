@@ -1,8 +1,6 @@
-package com.leoh.hhweek2.infrastructures.core.lecture;
+package com.leoh.hhweek2.domain.lecture;
 
-import com.leoh.hhweek2.domain.exception.LectureNotFoundException;
-import com.leoh.hhweek2.domain.lecture.Lecture;
-import com.leoh.hhweek2.domain.lecture.LectureRepository;
+import com.leoh.hhweek2.infrastructures.core.lecture.LectureRepositoryImpl;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +15,7 @@ import static org.assertj.core.api.Assertions.*;
 
 @DataJpaTest
 @Import(LectureRepositoryImpl.class)
-class LectureRepositoryImplTest {
+class LectureRepositoryTest {
 
     @Autowired
     private LectureRepository lectureRepository;
@@ -26,14 +24,16 @@ class LectureRepositoryImplTest {
     private EntityManager em;
 
     @Test
-    @DisplayName("특강 ID로 특강 조회 시 해당 특강이 없으면 예외 발생")
+    @DisplayName("특강 ID로 특강 조회 시 해당 특강이 없으면 null 반환")
     void findById_whenLectureDoesNotExist_thenThrowsLectureNotFoundException() {
         // given
         Long lectureId = 1L;
 
-        // when // then
-        assertThatThrownBy(() -> lectureRepository.findById(lectureId))
-                .isInstanceOf(LectureNotFoundException.class);
+        // when
+        Lecture lecture = lectureRepository.findById(lectureId);
+
+        // then
+        assertThat(lecture).isNull();
     }
 
     @Test

@@ -1,10 +1,13 @@
 package com.leoh.hhweek2.domain.lecture;
 
+import com.leoh.hhweek2.domain.lecture.enrollment.Enrollment;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -42,5 +45,53 @@ class LectureTest {
         assertThat(result).isTrue();
         assertThat(result2).isTrue();
         assertThat(result3).isTrue();
+    }
+
+    @Test
+    @DisplayName("정원보다 신청인원이 적은 지 확인하여 신청 가능 여부를 조회한다.")
+    void canEnroll_returnsTrue_whenCapcityGreaterThanEnrollmentsSize() {
+        // given
+        int capacity = 30;
+        int availableEnrollmentCount = 29;
+        int unavailableEnrollmentCount = capacity;
+
+        List<Enrollment> availableEnrollments = new ArrayList<>();
+        for (int i = 0; i < availableEnrollmentCount; i++) {
+            availableEnrollments.add(Enrollment.builder().build());
+        }
+
+        List<Enrollment> unavailableEnrollments = new ArrayList<>();
+        for (int i = 0; i < unavailableEnrollmentCount; i++) {
+            unavailableEnrollments.add(Enrollment.builder().build());
+        }
+
+        Lecture availableLecture = Lecture.builder().capacity(capacity).enrollments(availableEnrollments).build();
+        Lecture unavailableLecture = Lecture.builder().capacity(capacity).enrollments(unavailableEnrollments).build();
+
+        // when
+        boolean availableResult = availableLecture.canEnroll();
+        boolean unavailableResult = unavailableLecture.canEnroll();
+
+        // then
+        assertThat(availableResult).isTrue();
+        assertThat(unavailableResult).isFalse();
+    }
+
+    @Test
+    @DisplayName("특강 신청 개수를 조회한다.")
+    void getCurrentEnrollmentCount_returnsEnrollmentsSize() {
+        // given
+        List<Enrollment> enrollments = List.of(
+                Enrollment.builder().build(),
+                Enrollment.builder().build()
+        );
+
+        Lecture lecture = Lecture.builder().enrollments(enrollments).build();
+
+        // when
+        int enrollmentCount = lecture.getCurrentEnrollmentCount();
+
+        // then
+        assertThat(enrollmentCount).isEqualTo(enrollments.size());
     }
 }
