@@ -1,5 +1,6 @@
 package com.leoh.hhweek2.domain.lecture;
 
+import com.leoh.hhweek2.domain.exception.DuplicatedEnrollmentException;
 import com.leoh.hhweek2.domain.exception.EnrollmentLimitExceededException;
 import com.leoh.hhweek2.domain.exception.LectureNotFoundException;
 import com.leoh.hhweek2.domain.lecture.dto.AvailableLectureSearchServiceRequest;
@@ -7,6 +8,8 @@ import com.leoh.hhweek2.domain.lecture.dto.EnrollmentServiceResponse;
 import com.leoh.hhweek2.domain.lecture.dto.LectureServiceResponse;
 import com.leoh.hhweek2.domain.lecture.dto.UserEnrollmentSearchServiceResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +18,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class LectureService {
 
     private final LectureRepository lectureRepository;
@@ -29,6 +33,7 @@ public class LectureService {
         }
 
         if (!lecture.canEnroll()) {
+            log.info("정원: {}, 현재 인원: {}", lecture.getCapacity(), lecture.getCurrentEnrollmentCount());
             throw new EnrollmentLimitExceededException("정원 초과된 특강입니다.");
         }
 
@@ -39,7 +44,11 @@ public class LectureService {
 
         Enrollment savedEnrollment = enrollmentRepository.save(enrollment);
 
-        return EnrollmentServiceResponse.fromEntity(savedEnrollment);
+        try {
+            return EnrollmentServiceResponse.fromEntity(savedEnrollment);
+        } catch (DataIntegrityViolationException e) {
+            throw new DuplicatedEnrollmentException("동일한 사용자는 동일한 특강에 중복 신청할 수 없습니다.", e);
+        }
     }
 
     public List<LectureServiceResponse> getAvailableLectures(AvailableLectureSearchServiceRequest searchRequest) {

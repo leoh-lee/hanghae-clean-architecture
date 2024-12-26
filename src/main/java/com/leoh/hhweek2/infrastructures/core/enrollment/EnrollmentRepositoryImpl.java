@@ -22,4 +22,9 @@ public class EnrollmentRepositoryImpl implements EnrollmentRepository {
     public Enrollment save(Enrollment enrollment) {
         return enrollmentJpaRepository.save(enrollment);
     }
+
+    @Override
+    public void deleteAllInBatch() {
+        enrollmentJpaRepository.deleteAllInBatch();
+    }
 }

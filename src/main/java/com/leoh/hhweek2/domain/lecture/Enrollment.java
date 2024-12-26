@@ -12,6 +12,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name="enrollment", uniqueConstraints = {
+        @UniqueConstraint(
+                name="lecture_user_uk",
+                columnNames={"lecture_id","user_id"}
+        )})
 public class Enrollment extends BaseEntity {
 
     @Id
@@ -22,6 +27,7 @@ public class Enrollment extends BaseEntity {
     @JoinColumn(name = "lecture_id")
     private Lecture lecture;
 
+    @Column(name = "user_id")
     private Long userId;
 
 }

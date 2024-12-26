@@ -8,4 +8,6 @@ public interface EnrollmentRepository {
 
     Enrollment save(Enrollment enrollment);
 
+    void deleteAllInBatch();
+
 }
