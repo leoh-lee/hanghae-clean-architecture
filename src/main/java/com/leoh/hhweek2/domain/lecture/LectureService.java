@@ -1,5 +1,6 @@
 package com.leoh.hhweek2.domain.lecture;
 
+import com.leoh.hhweek2.domain.exception.EnrollmentLimitExceededException;
 import com.leoh.hhweek2.domain.exception.LectureNotFoundException;
 import com.leoh.hhweek2.domain.lecture.dto.AvailableLectureSearchServiceRequest;
 import com.leoh.hhweek2.domain.lecture.dto.EnrollmentServiceResponse;
@@ -21,10 +22,14 @@ public class LectureService {
 
     @Transactional
     public EnrollmentServiceResponse enroll(long lectureId, long userId) {
-        Lecture lecture = lectureRepository.findById(lectureId);
+        Lecture lecture = lectureRepository.findByIdWithLock(lectureId);
 
         if (lecture == null) {
             throw new LectureNotFoundException("존재하지 않는 특강입니다.");
+        }
+
+        if (!lecture.canEnroll()) {
+            throw new EnrollmentLimitExceededException("정원 초과된 특강입니다.");
         }
 
         Enrollment enrollment = Enrollment.builder()

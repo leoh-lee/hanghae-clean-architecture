@@ -19,6 +19,11 @@ public class LectureRepositoryImpl implements LectureRepository {
     }
 
     @Override
+    public Lecture findByIdWithLock(Long lectureId) {
+        return lectureJpaRepository.findByIdWithLock(lectureId).orElse(null);
+    }
+
+    @Override
     public List<Lecture> findAll() {
         return lectureJpaRepository.findAll();
     }
