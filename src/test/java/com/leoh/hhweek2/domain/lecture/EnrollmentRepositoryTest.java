@@ -1,9 +1,5 @@
-package com.leoh.hhweek2.domain.lecture.enrollment;
+package com.leoh.hhweek2.domain.lecture;
 
-import com.leoh.hhweek2.domain.lecture.Enrollment;
-import com.leoh.hhweek2.domain.lecture.EnrollmentRepository;
-import com.leoh.hhweek2.domain.lecture.Lecture;
-import com.leoh.hhweek2.domain.lecture.LectureRepository;
 import com.leoh.hhweek2.infrastructures.core.enrollment.EnrollmentRepositoryImpl;
 import com.leoh.hhweek2.infrastructures.core.lecture.LectureRepositoryImpl;
 import jakarta.persistence.EntityManager;
