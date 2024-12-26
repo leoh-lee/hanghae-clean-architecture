@@ -37,7 +37,7 @@ class LectureControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("사용자 id와 특강 id로 특강을 신청할 수 있다.")
+    @DisplayName("특강 수강신청 API")
     void enroll() throws Exception {
         // given
         long lectureId = 1L;

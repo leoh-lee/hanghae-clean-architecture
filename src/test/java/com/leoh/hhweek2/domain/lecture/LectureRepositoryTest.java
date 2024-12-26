@@ -24,7 +24,7 @@ class LectureRepositoryTest {
     private EntityManager em;
 
     @Test
-    @DisplayName("특강 ID로 특강 조회 시 해당 특강이 없으면 null 반환")
+    @DisplayName("특강 ID로 특강 조회 시 해당 특강이 없으면 null을 반환한다")
     void findById_whenLectureDoesNotExist_thenThrowsLectureNotFoundException() {
         // given
         Long lectureId = 1L;
@@ -37,7 +37,7 @@ class LectureRepositoryTest {
     }
 
     @Test
-    @DisplayName("특강 ID로 특강 조회 성공")
+    @DisplayName("특강 ID로 특강을 조회한다.")
     void findById_success() {
         // given
         String lectureName = "특강명";
