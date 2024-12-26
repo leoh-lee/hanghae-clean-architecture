@@ -33,4 +33,8 @@ public class LectureRepositoryImpl implements LectureRepository {
         return lectureJpaRepository.save(lecture);
     }
 
+    @Override
+    public void deleteAllInBatch() {
+        lectureJpaRepository.deleteAllInBatch();
+    }
 }

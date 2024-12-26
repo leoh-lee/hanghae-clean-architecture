@@ -11,4 +11,6 @@ public interface LectureRepository {
     List<Lecture> findAll();
 
     Lecture save(Lecture lecture);
+
+    void deleteAllInBatch();
 }

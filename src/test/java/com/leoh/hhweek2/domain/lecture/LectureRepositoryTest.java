@@ -2,6 +2,7 @@ package com.leoh.hhweek2.domain.lecture;
 
 import com.leoh.hhweek2.infrastructures.core.lecture.LectureRepositoryImpl;
 import jakarta.persistence.EntityManager;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,11 @@ class LectureRepositoryTest {
 
     @Autowired
     private EntityManager em;
+
+    @BeforeEach
+    void setUp() {
+        lectureRepository.deleteAllInBatch();
+    }
 
     @Test
     @DisplayName("특강 ID로 특강 조회 시 해당 특강이 없으면 null을 반환한다")
