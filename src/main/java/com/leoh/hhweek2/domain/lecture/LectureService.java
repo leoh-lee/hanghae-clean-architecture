@@ -42,10 +42,8 @@ public class LectureService {
                 .lecture(lecture)
                 .build();
 
-        Enrollment savedEnrollment = enrollmentRepository.save(enrollment);
-
         try {
-            return EnrollmentServiceResponse.fromEntity(savedEnrollment);
+            return EnrollmentServiceResponse.fromEntity(enrollmentRepository.save(enrollment));
         } catch (DataIntegrityViolationException e) {
             throw new DuplicatedEnrollmentException("동일한 사용자는 동일한 특강에 중복 신청할 수 없습니다.", e);
         }
