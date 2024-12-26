@@ -1,7 +1,6 @@
 package com.leoh.hhweek2.application.lecture;
 
 import com.leoh.hhweek2.domain.lecture.LectureService;
-import com.leoh.hhweek2.domain.lecture.enrollment.EnrollmentService;
 import com.leoh.hhweek2.domain.lecture.enrollment.EnrollmentServiceResponse;
 import com.leoh.hhweek2.interfaces.api.lecture.*;
 import lombok.RequiredArgsConstructor;
@@ -14,10 +13,9 @@ import java.util.List;
 public class LectureFacade {
 
     private final LectureService lectureService;
-    private final EnrollmentService enrollmentService;
 
     public EnrollResponse enroll(long lectureId, EnrollRequest enrollRequest) {
-        EnrollmentServiceResponse enrollmentServiceResponse = enrollmentService.enroll(lectureId, enrollRequest.userId());
+        EnrollmentServiceResponse enrollmentServiceResponse = lectureService.enroll(lectureId, enrollRequest.userId());
         return EnrollResponse.fromServiceResponse(enrollmentServiceResponse);
     }
 
@@ -29,6 +27,9 @@ public class LectureFacade {
     }
 
     public List<UserEnrollmentSearchResponse> getUserEnrollment(long userId) {
-        return null;
+        return lectureService.getUserEnrollments(userId)
+                .stream()
+                .map(UserEnrollmentSearchResponse::fromServiceResponse)
+                .toList();
     }
 }

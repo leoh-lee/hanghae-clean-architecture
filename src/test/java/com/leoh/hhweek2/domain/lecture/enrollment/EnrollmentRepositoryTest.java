@@ -71,4 +71,38 @@ class EnrollmentRepositoryTest {
         // then
         assertThat(findEnrollments).hasSize(2);
     }
+
+    @Test
+    @DisplayName("특강을 신청한다")
+    void save() {
+        // given
+        long userId = 1L;
+
+        Lecture lecture = Lecture.builder()
+                .name("특강1")
+                .capacity(30)
+                .description("특강입니다!!")
+                .speaker("leoh")
+                .build();
+
+        lectureRepository.save(lecture);
+        em.flush();
+
+        Enrollment enrollment = Enrollment.builder()
+                .userId(userId)
+                .lecture(lecture)
+                .build();
+
+        enrollmentRepository.save(enrollment);
+        em.flush();
+
+        // when
+        List<Enrollment> enrollments = enrollmentRepository.findEnrollmentsByUserId(userId);
+
+        // then
+        assertThat(enrollments).hasSize(1);
+
+        assertThat(enrollments).extracting("userId")
+                .containsExactly(userId);
+    }
 }
