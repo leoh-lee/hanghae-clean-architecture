@@ -1,0 +1,1 @@
+insert into lecture (name, lecture_date_time, speaker, capacity, description) values ('네트워크', CURRENT_TIMESTAMP, 'Leoh', 30, '네트워크에 대한 특강입니다.');

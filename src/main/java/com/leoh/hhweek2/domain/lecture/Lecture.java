@@ -17,6 +17,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "lecture", indexes = @Index(name = "idx_date_range_lecture", columnList = "lecture_date_time"))
 public class Lecture extends BaseEntity {
 
     @Id
@@ -25,6 +26,7 @@ public class Lecture extends BaseEntity {
 
     private String name;
 
+    @Column(name = "lecture_date_time")
     private LocalDateTime lectureDateTime;
 
     private String speaker;
@@ -34,6 +36,7 @@ public class Lecture extends BaseEntity {
     private String description;
 
     @OneToMany(mappedBy = "lecture")
+    @Builder.Default
     private List<Enrollment> enrollments = new ArrayList<>();
 
     public boolean isScheduledWithin(LocalDate startDate, LocalDate endDate) {

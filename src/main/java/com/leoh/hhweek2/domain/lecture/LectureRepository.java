@@ -6,7 +6,11 @@ public interface LectureRepository {
 
     Lecture findById(Long lectureId);
 
+    Lecture findByIdWithLock(Long lectureId);
+
     List<Lecture> findAll();
 
     Lecture save(Lecture lecture);
+
+    void deleteAllInBatch();
 }

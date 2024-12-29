@@ -139,7 +139,7 @@ class LectureServiceTest {
     void enroll_whenIsLectureNull_throwsLectureNotFoundException() {
         // given
         long lectureId = 1L;
-        when(lectureRepository.findById(lectureId)).thenReturn(null);
+        when(lectureRepository.findByIdWithLock(lectureId)).thenReturn(null);
 
         // when // then
         assertThatThrownBy(() -> lectureService.enroll(lectureId, 1L))
@@ -152,10 +152,10 @@ class LectureServiceTest {
         // given
         long lectureId = 1L;
         long userId = 1L;
-        Lecture lecture = Lecture.builder().id(lectureId).enrollments(List.of()).build();
+        Lecture lecture = Lecture.builder().id(lectureId).capacity(30).enrollments(List.of()).build();
         Enrollment enrollment = Enrollment.builder().userId(userId).lecture(lecture).build();
 
-        when(lectureRepository.findById(lectureId)).thenReturn(lecture);
+        when(lectureRepository.findByIdWithLock(lectureId)).thenReturn(lecture);
         when(enrollmentRepository.save(any())).thenReturn(enrollment);
 
         // when
